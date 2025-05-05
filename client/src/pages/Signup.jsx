@@ -72,7 +72,7 @@ const Signup = () => {
                     <div className='flex justify-center'>
                         <button className='p-2 px-8 rounded-2xl bg-[#0e3359] hover:bg-[#26476a] transition font-semibold'>Submit</button>
                     </div>
-                </form>
+                </form>      
             </div>
         </div>
     )
