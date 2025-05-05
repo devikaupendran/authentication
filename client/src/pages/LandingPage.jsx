@@ -20,7 +20,7 @@ const LandingPage = () => {
             <div className='w-full h-full flex flex-col justify-center items-center gap-10 text-center'>
 
                 <div className='max-w-[80%] text-wrap'>
-                    <h1 className='text-2xl font-bold'>Welcome to our webpage</h1>
+                    <h1 className='text-2xl font-bold mb-4'>Welcome to our webpage</h1>
                     <p>We're excited to have you here.Whether you're returning or just getting started, signin or create an account to unlock a personalized experience. Everything you need is just a click away.</p>
                 </div>
 
