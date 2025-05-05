@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
 import toast from '../../node_modules/react-hot-toast/src/index';
+import { useAppContext } from '../contexts/AppContext';
 
 const Signup = () => {
+
+    const { backendURL } = useAppContext()
 
     const [formData, setFormData] = useState(
         {
@@ -29,16 +31,28 @@ const Signup = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        if(formData.password !== formData.confirmPassword){
+        if (formData.password !== formData.confirmPassword) {
             toast.error("Password do not match");
             return
         }
 
         try {
-            const {data} = await axios.post(``)
+            const { data } = await axios.post(`${backendURL}/api/user/signup`, formData, { withCredentials: true });
+            if (data.success) {
+                toast.success("Signup Successfully");
+                console.log("Signup successfull : ", data);
+                navigate('/home');
+            }
+            else {
+                toast.error(data.message);
+            }
+        }
+        catch (err) {
+            const msg = err.response?.data?.message || err.message;
+            console.log("Error : ", err);
+            toast.error(msg);
         }
     }
-
 
     return (
         <div className='w-full h-screen text-white flex items-center justify-center md:justify-start absolute top-0 overflow-hidden md:ps-40 ps-0'>
