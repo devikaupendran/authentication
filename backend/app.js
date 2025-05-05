@@ -1,11 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import connectDB from './config/mongodbConnect.js';
+import userRoutes from './routes/user.routes.js'
 
 const app = express();
 
 dotenv.config();
 connectDB();
+
+app.use('/api/user', userRoutes)
 
 app.get('/', (req, res) => {
     res.send('hello')
