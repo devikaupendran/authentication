@@ -15,7 +15,6 @@ const Navbar = () => {
             <div className='hidden md:flex gap-8 font-semibold text-[18px]'>
                 <Link to={'/home'}>Home</Link>
                 <Link to={'/about'}>About us</Link>
-                <Link to={'/contact'}>Contact us </Link>
             </div>
 
         </nav>
