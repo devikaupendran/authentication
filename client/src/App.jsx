@@ -1,11 +1,19 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/LandingPage'
+import Home from './pages/Home'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 const App = () => {
     return (
         <div>
-            <h1 class="text-3xl font-bold underline text-red-500">
-                Hello world!
-            </h1>
+            <Routes>
+                <Route path='/' element={<LandingPage />} />
+                <Route path='/home' element={<Home />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/login' element={<Login />} />
+            </Routes>
 
         </div>
     )
