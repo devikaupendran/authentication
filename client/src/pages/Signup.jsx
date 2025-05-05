@@ -1,8 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets'
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom'
+import toast from '../../node_modules/react-hot-toast/src/index';
 
 const Signup = () => {
+
+    const [formData, setFormData] = useState(
+        {
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        }
+    )
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData(
+            {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        )
+    }
+
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        if(formData.password !== formData.confirmPassword){
+            toast.error("Password do not match");
+            return
+        }
+
+        try {
+            const {data} = await axios.post(``)
+        }
+    }
+
+
     return (
         <div className='w-full h-screen text-white flex items-center justify-center md:justify-start absolute top-0 overflow-hidden md:ps-40 ps-0'>
 
@@ -20,16 +57,18 @@ const Signup = () => {
                 <h1 className='text-5xl font-semibold mb-10 text-center'>Signup</h1>
 
                 {/* Form */}
-                <form className='flex flex-col gap-3'>
+                <form className='flex flex-col gap-3' onSubmit={onSubmitHandler}>
 
                     {/* Name field  */}
                     <label className='font-medium'>Name : </label>
                     <input
                         type="name"
                         name="name"
+                        value={formData.name}
                         className='border border-gray-300 outline-none p-2 rounded-sm text-white'
                         placeholder='Type here'
                         required
+                        onChange={handleChange}
                     />
 
                     {/* Email field  */}
@@ -37,9 +76,11 @@ const Signup = () => {
                     <input
                         type="email"
                         name="email"
+                        value={formData.email}
                         className='border border-gray-300 outline-none p-2 rounded-sm text-white'
                         placeholder='Type here'
                         required
+                        onChange={handleChange}
                     />
 
                     {/* Password field  */}
@@ -47,9 +88,11 @@ const Signup = () => {
                     <input
                         type="password"
                         name="password"
+                        value={formData.password}
                         className='border border-gray-300 outline-none p-2 rounded-sm text-white'
                         placeholder='Type here'
                         required
+                        onChange={handleChange}
                     />
 
                     {/* Confirm Password field  */}
@@ -57,9 +100,11 @@ const Signup = () => {
                     <input
                         type="password"
                         name="confirmPassword"
+                        value={formData.confirmPassword}
                         className='border border-gray-300 outline-none p-2 rounded-sm text-white'
                         placeholder='Type here'
                         required
+                        onChange={handleChange}
                     />
 
                     <div>

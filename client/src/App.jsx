@@ -6,11 +6,14 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import About from './pages/About'
+import { Toaster } from 'react-hot-toast'
+
 
 const App = () => {
     return (
         <div>
-            <Navbar/>
+            <Toaster/>
+            <Navbar />
             <Routes>
                 <Route path='/' element={<LandingPage />} />
                 <Route path='/home' element={<Home />} />
