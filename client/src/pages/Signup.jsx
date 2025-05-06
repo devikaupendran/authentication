@@ -7,7 +7,7 @@ import { useAppContext } from '../contexts/AppContext';
 
 const Signup = () => {
 
-    const { backendURL } = useAppContext();
+    const { backendURL,setIsAuthenticated } = useAppContext();
 
     const [formData, setFormData] = useState(
         {
@@ -40,6 +40,7 @@ const Signup = () => {
             const { data } = await axios.post(`${backendURL}/api/user/signup`, formData, { withCredentials: true });
             if (data.success) {
                 toast.success("Signup Successfully");
+                setIsAuthenticated(true)
                 console.log("Signup successfull : ", data);
                 navigate('/home');
             }

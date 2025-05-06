@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 
 const Login = () => {
 
-    const { backendURL } = useAppContext();
+    const { backendURL, setIsAuthenticated } = useAppContext();
     const navigate = useNavigate();
     const [formData, setFormData] = useState(
         {
@@ -31,6 +31,7 @@ const Login = () => {
             const { data } = await axios.post(`${backendURL}/api/user/login`, formData, { withCredentials: true })
             if (data.success) {
                 toast.success('Login Successfully');
+                setIsAuthenticated(true);
                 console.log('Login successfull : ', data);
                 navigate('/home');
             }

@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import About from './pages/About'
 import { Toaster } from 'react-hot-toast'
+import PrivateRoute from './components/PrivateRoute'
 
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
             <Navbar />
             <Routes>
                 <Route path='/' element={<LandingPage />} />
-                <Route path='/home' element={<Home />} />
+                <Route path='/home' element={<PrivateRoute> <Home /> </PrivateRoute>} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/about' element={<About />} />

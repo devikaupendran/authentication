@@ -94,3 +94,12 @@ export const login = async (req, res) => {
     }
 }
 
+export const getMe = async (req, res) => {
+    try {
+        // `protect` middleware has already run and added `req.user` to the request
+        return res.status(200).json({ success: true, user: req.user });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
