@@ -1,19 +1,19 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import LandingPage from './pages/LandingPage'
-import Home from './pages/Home'
-import Signup from './pages/Signup'
-import Login from './pages/Login'
-import Navbar from './components/Navbar'
-import About from './pages/About'
-import { Toaster } from 'react-hot-toast'
-import PrivateRoute from './components/PrivateRoute'
+import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import LandingPage from './pages/LandingPage';
+import Home from './pages/Home';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Navbar from './components/Navbar';
+import About from './pages/About';
+import PrivateRoute from './components/PrivateRoute';
 
 
 const App = () => {
     return (
         <div>
-            <Toaster/>
+            <Toaster position='top-right'/>
             <Navbar />
             <Routes>
                 <Route path='/' element={<LandingPage />} />
@@ -22,9 +22,8 @@ const App = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/about' element={<About />} />
             </Routes>
-
         </div>
     )
 }
 
-export default App
+export default App;

@@ -4,8 +4,9 @@ import { useAppContext } from '../contexts/AppContext';
 
 const PrivateRoute = ({children}) => {
 
-    const { isAuthenticated } = useAppContext();
+    const { isAuthenticated, loading } = useAppContext();
 
+    if(loading) return <div>Loading...</div>
     return isAuthenticated ? children : <Navigate to="/" />;
 }
 
