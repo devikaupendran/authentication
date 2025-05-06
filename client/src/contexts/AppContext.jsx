@@ -8,9 +8,9 @@ export const AppContextProvider = ({children}) => {
         backendURL
     }
     return (
-        <AppContextProvider value={value}>
+        <AppContext.Provider value={value}>
             {children}
-        </AppContextProvider>
+        </AppContext.Provider>
     )
 }
 

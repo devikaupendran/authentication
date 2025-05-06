@@ -7,7 +7,7 @@ import { useAppContext } from '../contexts/AppContext';
 
 const Signup = () => {
 
-    const { backendURL } = useAppContext()
+    const { backendURL } = useAppContext();
 
     const [formData, setFormData] = useState(
         {

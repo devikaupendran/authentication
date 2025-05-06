@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import axios from 'axios'
@@ -32,7 +32,7 @@ const Login = () => {
             if (data.success) {
                 toast.success('Login Successfully');
                 console.log('Login successfull : ', data);
-                navigate('/');
+                navigate('/home');
             }
             else {
                 toast.error(data.message);
@@ -58,10 +58,10 @@ const Login = () => {
 
             {/* Login form  */}
             <div className='w-[100%] sm:w-[400px] h-[460px] bg-black/40 backdrop-blur-md p-6 sm:p-10 rounded-lg shadow-lg'>
-                <h1 className='text-5xl font-semibold mb-10 text-center' onSubmit={handleOnSubmit}>Login</h1>
+                <h1 className='text-5xl font-semibold mb-10 text-center' >Login</h1>
 
                 {/* Form */}
-                <form className='flex flex-col gap-3'>
+                <form className='flex flex-col gap-3' onSubmit={handleOnSubmit}>
 
                     {/* Email field  */}
                     <label className='font-medium'>Email ID:</label>

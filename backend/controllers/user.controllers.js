@@ -56,6 +56,14 @@ export const signup = async (req, res) => {
     }
 }
 
+/*
+    1. Receives email and password
+    2. Finds user by email
+    3. Compares hashed password with bcrypt
+    4. Generates JWT and sets cookie if credentials match
+    5. Returns user data
+*/
+
 export const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -79,7 +87,6 @@ export const login = async (req, res) => {
 
         const { password: _, ...userWithoutPassword } = user.toObject();
         return res.status(200).json({ success: true, user: userWithoutPassword });
-
     }
     catch (error) {
         console.error("Login error:", error);
