@@ -16,17 +16,15 @@ export const AppContextProvider = ({ children }) => {
                     withCredentials: true,
                 });
 
-                if (res.data.success) {
-                    setUser(res.data.user);
-                    setIsAuthenticated(true);
-                } else {
-                    setIsAuthenticated(false);
-                    setUser(null);
-                }
-            } catch (error) {
+                setUser(res.data.user);
+                setIsAuthenticated(true);
+
+            }
+            catch (error) {
                 setIsAuthenticated(false);
                 setUser(null);
-            } finally {
+            } 
+            finally {
                 setLoading(false);
             }
         };
