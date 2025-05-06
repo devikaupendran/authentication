@@ -1,8 +1,28 @@
 import React from 'react'
 import { assets } from '../assets/assets'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAppContext } from '../contexts/AppContext'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const Navbar = () => {
+
+    const { backendURL, isAuthenticated, setIsAuthenticated } = useAppContext();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await axios.post(`${backendURL}/api/user/logout`, {}, { withCredentials: true }, {}, { withCredentials: true });
+            setIsAuthenticated(false);
+            navigate('/');
+            toast.success('logout successfully');
+        } catch (err) {
+            const msg = err.response?.data?.message || err.message;
+            console.log("error : ", err);
+            toast.error(msg);
+        }
+    };
+
     return (
         <nav className='w-full h-20 flex gap-5 justify-between items-center px-10 relative z-30 bg-transparent'>
             <Link to={'/home'}>
@@ -15,10 +35,20 @@ const Navbar = () => {
             <div className='hidden md:flex gap-8 font-semibold text-[18px]'>
                 <Link to={'/home'}>Home</Link>
                 <Link to={'/about'}>About us</Link>
+                {
+                    isAuthenticated && (
+                        <button
+                            onClick={handleLogout}
+                            className='bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition'
+                        >
+                            Logout
+                        </button>
+                    )
+                }
             </div>
 
         </nav>
     )
 }
 
-export default Navbar
+export default Navbar;

@@ -103,3 +103,10 @@ export const getMe = async (req, res) => {
     }
 };
 
+
+export const logout = (req, res) => {
+    res.clearCookie('authToken', { httpOnly: true });
+    res.status(200).json({ success: true, message: 'Logged out successfully' });
+};
+
+

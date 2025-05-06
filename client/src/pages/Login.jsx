@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
-import axios from 'axios'
+import axios from 'axios';
 import { useAppContext } from '../contexts/AppContext';
 import toast from 'react-hot-toast'
 
@@ -39,7 +39,7 @@ const Login = () => {
                 toast.error(data.message);
             }
         }
-        catch(err) {
+        catch (err) {
             const msg = err.response?.data?.message || err.message;
             console.log("error : ", err);
             toast.error(msg);
