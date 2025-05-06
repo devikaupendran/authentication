@@ -1,7 +1,7 @@
 import { UserModel } from "../models/user.models.js";
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import {validateSignupData} from '../utils/userFormValidator.js'
+import { validateSignupData } from '../utils/userFormValidator.js'
 
 /*
     1. Receives user data from frontend
@@ -55,3 +55,35 @@ export const signup = async (req, res) => {
         });
     }
 }
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await UserModel.findOne({ email });
+
+        // Check user exists and password matches
+        if (!user) {
+            return res.json({ success: false, message: "Invalid credentials" })
+        }
+
+        const isMatch = await bcryptjs.compare(password, user.password);
+        if (!isMatch) {
+            return res.json({ success: false, message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' }
+        );
+
+        res.cookie('authToken', token, { httpOnly: true, maxAge: 3600000 });
+
+        const { password: _, ...userWithoutPassword } = user.toObject();
+        return res.status(200).json({ success: true, user: userWithoutPassword });
+
+    }
+    catch (error) {
+        console.error("Login error:", error);
+        return res.status(500).json({ success: false, message: "Something went wrong" });
+    }
+}
+
