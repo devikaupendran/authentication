@@ -20,12 +20,12 @@ export const signup = async (req, res) => {
         const { isValid, errors } = validateSignupData({ name, email, password, confirmPassword })
 
         if (!isValid) {
-            return res.status(200).json({ success: false, message: errors[0] });
+            return res.status(400).json({ success: false, message: errors[0] });
         }
 
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ success: false, message: "Email already in use" });
+            return res.status(409).json({ success: false, message: "Email already in use" });
         }
 
         const hashedPassword = await bcryptjs.hash(password, 10);
@@ -43,10 +43,11 @@ export const signup = async (req, res) => {
             maxAge: 3600000,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax'
-        })
+        });
         const { password: _, ...userWithoutPassword } = newUser.toObject();
-        return res.status(201).json({ user: userWithoutPassword, success: true });
+        return res.status(201).json({  success: true, user: userWithoutPassword, });
     }
+    
     catch (error) {
         console.error(error);
         res.status(500).json({
@@ -55,6 +56,7 @@ export const signup = async (req, res) => {
         });
     }
 }
+
 
 /*
     1. Receives email and password
@@ -72,12 +74,12 @@ export const login = async (req, res) => {
 
         // Check user exists and password matches
         if (!user) {
-            return res.json({ success: false, message: "Invalid credentials" })
+            return res.status(401).json({ success: false, message: "Invalid credentials" })
         }
 
         const isMatch = await bcryptjs.compare(password, user.password);
         if (!isMatch) {
-            return res.json({ success: false, message: 'Invalid credentials' });
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' }
@@ -98,14 +100,15 @@ export const getMe = async (req, res) => {
     try {
         // `protect` middleware has already run and added `req.user` to the request
         return res.status(200).json({ success: true, user: req.user });
-    } catch (error) {
+    } 
+    catch (error) {
         return res.status(500).json({ success: false, message: 'Server error' });
     }
 };
 
 export const logout = (req, res) => {
     res.clearCookie('authToken', { httpOnly: true });
-    res.status(200).json({ success: true, message: 'Logged out successfully' });
+    return res.status(200).json({ success: true, message: 'Logged out successfully' });
 };
 
 

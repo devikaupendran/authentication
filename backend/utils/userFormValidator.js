@@ -21,6 +21,6 @@ export const validateSignupData = ({ name, email, password, confirmPassword }) =
 
     return {
         isValid: errors.length === 0,
-        errors,
+        errors, 
     }
 }

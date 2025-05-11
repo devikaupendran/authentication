@@ -18,7 +18,6 @@ export const AppContextProvider = ({ children }) => {
 
                 setUser(res.data.user);
                 setIsAuthenticated(true);
-
             }
             catch (error) {
                 setIsAuthenticated(false);
@@ -28,7 +27,7 @@ export const AppContextProvider = ({ children }) => {
                 setLoading(false);
             }
         };
-
+ 
         checkAuth();
     }, [backendURL]);
 

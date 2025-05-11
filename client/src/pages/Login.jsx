@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import axios from 'axios';
 import { useAppContext } from '../contexts/AppContext';
-import toast from 'react-hot-toast'
+import {toast} from 'react-hot-toast'
 
 const Login = () => {
 

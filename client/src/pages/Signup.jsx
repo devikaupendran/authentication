@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
-import toast from '../../node_modules/react-hot-toast/src/index';
+import { toast } from 'react-hot-toast';
 import { useAppContext } from '../contexts/AppContext';
 
 const Signup = () => {
@@ -40,7 +40,7 @@ const Signup = () => {
             const { data } = await axios.post(`${backendURL}/api/user/signup`, formData, { withCredentials: true });
             if (data.success) {
                 toast.success("Signup Successfully");
-                setIsAuthenticated(true)
+                setIsAuthenticated(true);
                 console.log("Signup successfull : ", data);
                 navigate('/home');
             }
@@ -77,7 +77,7 @@ const Signup = () => {
                     {/* Name field  */}
                     <label className='font-medium'>Name : </label>
                     <input
-                        type="name"
+                        type="text"
                         name="name"
                         value={formData.name}
                         className='border border-gray-300 outline-none p-2 rounded-sm text-white'

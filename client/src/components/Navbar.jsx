@@ -12,16 +12,23 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post(`${backendURL}/api/user/logout`, {}, { withCredentials: true }, {}, { withCredentials: true });
-            setIsAuthenticated(false);
-            navigate('/');
-            toast.success('logout successfully');
+            const { data } = await axios.post(`${backendURL}/api/user/logout`, {}, { withCredentials: true });
+    
+            if (data.success) {
+                setIsAuthenticated(false);
+                navigate('/');
+                toast.success('Logged out successfully');
+            } else {
+                toast.error('Logout failed');
+            }
+    
         } catch (err) {
             const msg = err.response?.data?.message || err.message;
             console.log("error : ", err);
             toast.error(msg);
         }
     };
+    
 
     return (
         <nav className='w-full h-20 flex gap-5 justify-between items-center px-10 relative z-30 bg-transparent'>
